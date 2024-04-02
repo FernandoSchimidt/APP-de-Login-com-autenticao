@@ -7,7 +7,7 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class LoginService {
-  apiURL:string ="http://localhost:8080/auth/login"
+  apiURL: string = 'http://localhost:8080/auth/login';
   constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string) {
@@ -17,7 +17,13 @@ export class LoginService {
         tap((value) => {
           sessionStorage.setItem('auth-token', value.token);
           sessionStorage.setItem('username', value.name);
+          sessionStorage.setItem('email', value.email);
         })
       );
+  }
+  logout() {
+    sessionStorage.removeItem('auth-token');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('email');
   }
 }
